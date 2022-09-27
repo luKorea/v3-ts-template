@@ -420,11 +420,16 @@ export default defineComponent({
               if (props.summaryTextPosition === 'left') {
                 sums[index] =
                   selectField.units +
-                  values.reduce((pre: any, next: any) => pre + next, 0)
+                  values.reduce(
+                    (pre: any, next: any) => (pre * 10 + next * 10) / 10,
+                    0
+                  )
               } else {
                 sums[index] =
-                  values.reduce((pre: any, next: any) => pre + next, 0) +
-                  selectField.units
+                  values.reduce(
+                    (pre: any, next: any) => (pre * 10 + next * 10) / 10,
+                    0
+                  ) + selectField.units
               }
               return
             } else {
