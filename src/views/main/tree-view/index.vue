@@ -6,6 +6,7 @@
 import { defineComponent } from 'vue'
 import { listData } from './data'
 export default defineComponent({
+  name: 'treeViewPage',
   setup() {
     return {
       listData

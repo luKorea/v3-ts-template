@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body,
+#app,
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: 'PingFang SC', "Helvetica Neue", Helvetica, "microsoft yahei", arial, STHeiTi, sans-serif;
+}
+a {
+  text-decoration: none;
+}
+.content-box {
+  position: absolute;
+  left: 250px;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  padding-bottom: 30px;
+  transition: left 0.3s ease-in-out;
+  background: #f0f0f0;
+}
+.content {
+  width: auto;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+.content-collapse {
+  left: 65px;
+}
+.container {
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.crumbs {
+  margin: 10px 0;
+}
+.el-table th {
+  background-color: #f5f7fa !important;
+}
+.pagination {
+  margin: 20px 0;
+  text-align: right;
+}
+.plugins-tips {
+  padding: 20px 10px;
+  margin-bottom: 20px;
+}
+.el-button + .el-tooltip {
+  margin-left: 10px;
+}
+.el-table tr:hover {
+  background: #f6faff;
+}
+.mgb20 {
+  margin-bottom: 20px;
+}
+.move-enter-active,
+.move-leave-active {
+  transition: opacity 0.1s ease;
+}
+.move-enter-from,
+.move-leave-to {
+  opacity: 0;
+}
+/*BaseForm*/
+.form-box {
+  width: 600px;
+}
+.form-box .line {
+  text-align: center;
+}
+.el-time-panel__content::after,
+.el-time-panel__content::before {
+  margin-top: -7px;
+}
+.el-time-spinner__wrapper .el-scrollbar__wrap:not(.el-scrollbar__wrap--hidden-default) {
+  padding-bottom: 0;
+}
+/*Upload*/
+/*VueEditor*/
+.ql-container {
+  min-height: 400px;
+}
+.ql-snow .ql-tooltip {
+  transform: translateX(117.5px) translateY(10px) !important;
+}
+.editor-btn {
+  margin-top: 20px;
+}
+/*markdown*/
+.v-note-wrapper .v-note-panel {
+  min-height: 500px;
+}
+/* 整个滚动条 */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 8px;
+}
+/* 滚动条有滑块的轨道部分 */
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  border-radius: 5px;
+}
+/* 滚动条滑块(竖向:vertical 横向:horizontal) */
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+/* 滚动条滑块hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #a9c9ff, #ffbbec);
+  cursor: pointer;
+}
+/* 同时有垂直和水平滚动条时交汇的部分 */
+::-webkit-scrollbar-corner {
+  display: block;
+  /* 修复交汇时出现的白块 */
+}
+.table-style {
+  padding: 20px;
+  border-top: 20px solid #f0f2f5;
+}
+.item-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-bottom: 22px;
+}
+.item-flex .item-title {
+  font-size: 14px;
+  color: #606266;
+  line-height: 30px !important;
+}
+.item-flex .item-tip {
+  color: #f56c6c;
+}
+.tip-title {
+  font-size: 14px;
+  color: #606266;
+  margin-right: 10px;
+}
+.page-country-wrap {
+  width: 100%;
+  margin-left: 160px;
+  box-sizing: border-box;
+}
+.hy-table {
+  margin-top: 10px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .flex-title .title {
+  font-size: 14px;
+  color: #b6b0b0;
+}
+.header .handler {
+  align-items: center;
+  display: flex;
+}
+.footer {
+  margin-top: 15px;
+}
+.footer .el-pagination {
+  text-align: right;
+}
+.el-upload-dragger {
+  width: 126px;
+  height: 126px;
+}
+.not-found {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eef0f3;
+}
+.not-found .status {
+  margin-top: 8px;
+  color: #000000d9;
+  font-size: 24px;
+  line-height: 1.8;
+  text-align: center;
+}
+.not-found .text {
+  margin-top: 8px;
+  color: #00000073;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+.not-found .btn {
+  margin-top: 8px;
+  border-color: #0960bd;
+  background: #0960bd;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px #0000000b;
+  color: #fff;
+  line-height: 1.5715;
+  position: relative;
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  background-image: none;
+  border: 1px solid transparent;
+  box-shadow: 0 2px #00000004;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  height: 32px;
+  padding: 4px 15px;
+  font-size: 14px;
+  border-radius: 2px;
+}

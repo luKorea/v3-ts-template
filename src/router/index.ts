@@ -33,18 +33,18 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/main/main.vue'),
     meta: {
       title: '首页'
-    }
-    // children: [
-    //   {
-    //     path: '/finance/warehouse',
-    //     name: 'warehouse',
-    //     component: () => import('@/views/main/finance/warehouse/warehouse.vue'),
-    //     meta: {
-    //       title: '用户资源仓库'
-    //     }
-    //     // children: [] -> 根据userMenus来决定 -> children
-    //   }
-    // ]
+    },
+    children: [
+      // {
+      //   path: '/treeView',
+      //   name: 'treeViews',
+      //   component: () => import('@/views/main/tree-view/index.vue'),
+      //   meta: {
+      //     title: '目录树列表'
+      //   }
+      // children: [] -> 根据userMenus来决定 -> children
+      // }
+    ]
   },
   {
     path: '/:pathMatch(.*)*',

@@ -1,22 +1,32 @@
 import type Editor from 'wangeditor'
 import WangEditor from 'wangeditor'
-import { getCommonSelectList } from '@/service/common'
+// import { getCommonSelectList } from '@/service/common'
+import { colorList } from '../color'
 const { $, DropListMenu } = WangEditor
-let data: any = []
-getCommonSelectList('editorColorList').then((res: any) => {
-  if (!res.result) {
-    data = res.data.rows.map((item: any) => {
-      return {
-        $elem: $(
-          `<span class="item-color" title='${item.color}' style='background-color: ${item.color}'></span>`
-        ),
-        value: item.color
-      }
-    })
+// 1. 方式一, 通过后台接口返回
+// getCommonSelectList('editorColorList').then((res: any) => {
+//   if (!res.result) {
+//     data = res.data.rows.map((item: any) => {
+//       return {
+//         $elem: $(
+//           `<span class="item-color" title='${item.color}' style='background-color: ${item.color}'></span>`
+//         ),
+//         value: item.color
+//       }
+//     })
+//   }
+// })
+// 方式二 通过函数生成
+const data = colorList().map((item: any) => {
+  return {
+    $elem: $(
+      `<span class="item-color" title='${item}' style='background-color: ${item}'></span>`
+    ),
+    value: item
   }
 })
 export default class BgColorMenu extends DropListMenu {
-  constructor(editor: any) {
+  constructor(editor: Editor) {
     const $elem = $(
       '<div class="w-e-menu info" data-title="背景颜色"><i class="w-e-icon-paint-brush"></i></div>'
     )
