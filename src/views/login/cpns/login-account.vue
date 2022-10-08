@@ -31,6 +31,7 @@
               placeholder="请输入密码"
               v-model="account.pwd"
               show-password
+              @keydown.enter="handleLoginClick"
             />
           </el-form-item>
         </el-form>
