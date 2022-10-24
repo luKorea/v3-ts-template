@@ -128,6 +128,7 @@ export default defineComponent({
       doIt,
       changeFormVisible,
       formData,
+      formOriginData,
       handleResetClick,
       handleQueryClick
     }

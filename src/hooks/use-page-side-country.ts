@@ -2,6 +2,7 @@ import { errorTip } from '@/utils/tip-info'
 import { ref, computed } from 'vue'
 import { getCommonSelectList } from '@/service/common'
 import { usePageSearch } from '@/hooks/use-page-search'
+import localCache from '@/utils/cache'
 
 export function useCountryList() {
   const countryList = ref<any>([])
@@ -25,7 +26,8 @@ export function useCountryList() {
  * @returns
  */
 export function useMapCountry(showAll = true, fn?: any) {
-  const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch(fn)
+  const [pageContentRef, handleResetClick, handleQueryClick, pageSearchRef] =
+    usePageSearch(fn)
   const [countryList] = useCountryList()
   const handleCountryList = computed(() => {
     const list = showAll
@@ -40,28 +42,28 @@ export function useMapCountry(showAll = true, fn?: any) {
     return list
   })
   // 侧边国家
-  const countryID = ref<any>(-999)
+  const countryID = ref<any>(
+    showAll ? '-999' : localCache.getSessionCache('defaultCountry')
+  )
   const nodeInfo = ref<any>()
   const countryRef = ref()
   const copyQueryInfo = ref({})
   const selectItem = ref<any>()
   const selectCountryClick = (item: any) => {
     countryID.value = item.id
-    handleQueryClick({
-      ...copyQueryInfo.value,
-      ...nodeInfo.value,
-      rid: countryID.value
-    })
+    handleResetBtnClick()
+    // console.log('-----', copyQueryInfo.value, nodeInfo.value, countryID.value);
+    // handleQueryClick({
+    //   ...copyQueryInfo.value,
+    //   ...nodeInfo.value,
+    //   rid: countryID.value
+    // })
   }
   const selectNodeClick = (item: any) => {
     nodeInfo.value = {
       ...item
     }
-    handleQueryClick({
-      ...copyQueryInfo.value,
-      ...nodeInfo.value,
-      rid: countryID.value
-    })
+    handleResetBtnClick()
   }
   const selectCategoryClick = (item: any) => {
     nodeInfo.value = {
@@ -69,11 +71,7 @@ export function useMapCountry(showAll = true, fn?: any) {
       library: 8
     }
     selectItem.value = item.category
-    handleQueryClick({
-      ...copyQueryInfo.value,
-      ...nodeInfo.value,
-      rid: countryID.value
-    })
+    handleResetBtnClick()
   }
   const handleQueryBtnClick = (queryInfo: any) => {
     copyQueryInfo.value = queryInfo
@@ -85,10 +83,12 @@ export function useMapCountry(showAll = true, fn?: any) {
   }
   // 刷新时重新选择第一条数据
   const handleResetBtnClick = () => {
-    countryRef.value.currentIndex = 0
-    countryID.value = showAll ? '-999' : countryList.value[0].id
-    nodeInfo.value = {}
-    handleResetClick()
+    handleResetClick({
+      currentPage: 1,
+      pageSize: 10,
+      rid: countryID.value,
+      ...nodeInfo.value
+    })
   }
   return {
     pageContentRef,
@@ -101,6 +101,7 @@ export function useMapCountry(showAll = true, fn?: any) {
     countryID,
     selectCategoryClick,
     selectItem,
-    handleQueryClick
+    handleQueryClick,
+    pageSearchRef
   }
 }

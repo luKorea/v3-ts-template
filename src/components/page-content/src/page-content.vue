@@ -346,29 +346,12 @@ export default defineComponent({
     // TODO 处理用户拖动表格后更新数据, 后续更改为通过用户传递action处理
     const router = useRouter()
     const drawTable = (data: any) => {
-      let idList = []
-      let rid = ''
-      let category = undefined
-      // 特殊处理一个页面
-      if (
-        props.pageName === 'resourceHomes' ||
-        props.pageName === 'courseIndexs'
-      ) {
-        idList = data.map((item: any) => +item.ridd)
-        rid = data[0].rid
-        category = data[0].category
-      } else idList = data.map((item: any) => +item.id)
       store
         .dispatch(props.storeTypeInfo.sortAction, {
           pageName: props.pageName,
           sortData: {
-            idList: JSON.stringify(idList),
-            category: category,
-            rid:
-              props.pageName === 'resourceHomes' ||
-              props.pageName === 'courseIndexs'
-                ? rid
-                : undefined
+            idList: JSON.stringify(data.map((item: any) => +item.id)),
+            queryInfo: data
           }
         })
         .then((res: any) => {
