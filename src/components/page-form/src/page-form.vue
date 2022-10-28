@@ -50,6 +50,7 @@ import { successTip, errorTip } from '@/utils/tip-info'
 
 import HyForm from '@/base-ui/form'
 import md5 from 'md5'
+import { _debounce } from '@/utils/index'
 export default defineComponent({
   name: 'PageForm',
   components: {
@@ -127,7 +128,7 @@ export default defineComponent({
 
     // 点击确定按钮的逻辑
     const store = useStore()
-    const handleConfirmClick = () => {
+    const handleConfirmClick = _debounce(() => {
       const formRef = pageFormRef.value?.formRef
       formRef?.validate((valid: any) => {
         if (valid) {
@@ -199,7 +200,7 @@ export default defineComponent({
           }
         } else return false
       })
-    }
+    }, 1000)
     // 表单事件监听
     const handleChangeSelect = (item: any) => {
       emit('changeSelect', item)

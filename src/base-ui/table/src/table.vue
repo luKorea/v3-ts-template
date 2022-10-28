@@ -46,7 +46,8 @@
           width="100"
         >
           <template #default>
-            <i class="el-icon-menu"></i>
+            <i class="el-icon-menu sortTable" style="cursor: all-scroll"></i>
+            <!-- <i class="el-icon-menu"></i> -->
           </template>
         </el-table-column>
         <!-- :reserve-selection="true" -->
@@ -384,6 +385,7 @@ export default defineComponent({
       }
       new SortTable(tableSort.value, {
         animation: 300,
+        handle: '.sortTable',
         onEnd(evt: any) {
           let data = [...props.listData]
           data.splice(evt.newIndex, 0, data.splice(evt.oldIndex, 1)[0])
