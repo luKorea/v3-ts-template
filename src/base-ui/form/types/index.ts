@@ -16,18 +16,21 @@ type IFormType =
   | 'datepicker'
   | 'datetimerange'
   | 'datetime'
+  | 'timePicker'
   | 'daterange'
   | 'radio'
   | 'cascader'
   | 'checkbox'
   | 'inputNumber'
-  | 'switch'
   | 'upload'
   | 'timeSelect'
   | 'treeSelect'
   | 'editor'
   | 'textarea'
   | 'switch'
+  | 'number'
+  | 'divider'
+  | 'inputSlot'
 
 export interface IFormItem {
   field: string
@@ -46,6 +49,9 @@ export interface IFormItem {
   startValue?: any
   endValue?: any
   defaultValue?: any
+  //  针对是否需要扩展
+  prepend?: string
+  append?: string
 }
 
 export interface IForm {

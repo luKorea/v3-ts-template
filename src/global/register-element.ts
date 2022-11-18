@@ -68,10 +68,12 @@ import {
   ElEmpty,
   ElPopconfirm,
   ElOptionGroup,
-  ElSwitch
+  ElSwitch,
+  ElTimePicker
 } from 'element-plus'
 
 const components = [
+  ElTimePicker,
   ElSwitch,
   ElTag,
   ElOptionGroup,

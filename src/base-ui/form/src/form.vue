@@ -12,7 +12,10 @@
     >
       <el-row :gutter="16">
         <template v-for="item in formItems" :key="item.label">
-          <el-col v-bind="colLayout">
+          <template v-if="item.type === 'divider'">
+            <el-divider style="width: 100%">{{ item.label }}</el-divider>
+          </template>
+          <el-col v-bind="colLayout" v-if="!item.isHidden">
             <el-form-item
               v-if="!item.isHidden"
               :label="item.label"
@@ -34,6 +37,21 @@
                   @clear="handleClear"
                 />
               </template>
+              <!--扩展数字插槽-->
+              <template v-if="item.type === 'inputSlot'">
+                <el-input
+                  clearable
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
+                  @keyup.enter="handleKeyUp"
+                  @clear="handleClear"
+                >
+                  <template #prepend>{{ item.prepend }}</template>
+                  <template #append>{{ item.append }}</template>
+                </el-input>
+              </template>
               <template v-if="item.type === 'textarea'">
                 <el-input
                   clearable
@@ -46,9 +64,10 @@
                   @clear="handleClear"
                 />
               </template>
-              <template v-if="item.type === 'inputNumber'">
+              <template v-if="item.type === 'number'">
                 <!-- :precision="2" -->
-                <el-input-number
+                <el-input
+                  type="number"
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   :model-value="modelValue[`${item.field}`]"
@@ -58,9 +77,41 @@
                   @clear="handleClear"
                 />
               </template>
+              <template v-if="item.type === 'inputNumber'">
+                <div class="hg-flex">
+                  <div
+                    class="hg-mr-1"
+                    style="min-width: 50px"
+                    v-if="item.prepend"
+                  >
+                    {{ item.prepend }}
+                  </div>
+                  <!-- :precision="2" -->
+                  <el-input-number
+                    :placeholder="item.placeholder"
+                    v-bind="item.otherOptions"
+                    :model-value="modelValue[`${item.field}`]"
+                    style="width: 100%"
+                    @update:modelValue="handleValueChange($event, item.field)"
+                    @keyup.enter="handleKeyUp"
+                    @clear="handleClear"
+                    type="number"
+                  >
+                  </el-input-number>
+                  <div
+                    class="hg-ml-1"
+                    v-if="item.append"
+                    style="min-width: 40px"
+                  >
+                    {{ item.append }}
+                  </div>
+                </div>
+              </template>
               <template v-else-if="item.type === 'switch'">
                 <el-switch
                   v-bind="item.otherOptions"
+                  :active-value="1"
+                  :inactive-value="0"
                   :model-value="modelValue[`${item.field}`]"
                   @update:modelValue="handleValueChange($event, item.field)"
                 />
@@ -124,7 +175,7 @@
                     :key="option.value"
                     :value="option.value"
                     :label="option.title"
-                    >{{ option.title }}</el-option
+                  >{{ option.title }}</el-option
                   >
                 </el-select>
               </template>
@@ -147,7 +198,7 @@
                     :key="option.value"
                     :value="option.value"
                     :label="option.title"
-                    >{{ option.title }}</el-option
+                  >{{ option.title }}</el-option
                   >
                 </el-select>
               </template>
@@ -195,13 +246,54 @@
                   item.type === 'daterange'
                 "
               >
-                <el-date-picker
-                  style="width: 100%"
-                  :type="item.type"
-                  v-bind="item.otherOptions"
-                  :model-value="modelValue[`${item.field}`]"
-                  @update:modelValue="handleValueChange($event, item.field)"
-                ></el-date-picker>
+                <div class="hg-flex">
+                  <div
+                    class="hg-mr-1"
+                    style="min-width: 50px"
+                    v-if="item.prepend"
+                  >
+                    {{ item.prepend }}
+                  </div>
+                  <el-date-picker
+                    style="width: 100%"
+                    :type="item.type"
+                    v-bind="item.otherOptions"
+                    :model-value="modelValue[`${item.field}`]"
+                    @update:modelValue="handleValueChange($event, item.field)"
+                  ></el-date-picker>
+                  <div
+                    class="hg-ml-1"
+                    v-if="item.append"
+                    style="min-width: 40px"
+                  >
+                    {{ item.append }}
+                  </div>
+                </div>
+              </template>
+              <template v-else-if="item.type === 'timePicker'">
+                <div class="hg-flex">
+                  <div
+                    class="hg-mr-1"
+                    style="min-width: 50px"
+                    v-if="item.prepend"
+                  >
+                    {{ item.prepend }}
+                  </div>
+                  <el-time-picker
+                    style="width: 100%"
+                    :type="item.type"
+                    v-bind="item.otherOptions"
+                    :model-value="modelValue[`${item.field}`]"
+                    @update:modelValue="handleValueChange($event, item.field)"
+                  ></el-time-picker>
+                  <div
+                    class="hg-ml-1"
+                    v-if="item.append"
+                    style="min-width: 40px"
+                  >
+                    {{ item.append }}
+                  </div>
+                </div>
               </template>
               <!-- 后续完善 -->
               <template v-else-if="item.type === 'editor'">
@@ -313,7 +405,7 @@ export default defineComponent({
     const showCascader = ref<boolean>(false)
     setTimeout(() => {
       showCascader.value = true
-    }, 1000)
+    }, 500)
     // 更新表单数据
     const handleValueChange = (value: any, field: string) => {
       console.log(value, field)
