@@ -117,8 +117,16 @@ export default defineComponent({
 
     // 3.优化三: 当用户点击搜索
     const handleQueryClick = () => {
+      const data: any = {}
+      Object.keys(formData.value).map((key: any) => {
+        const item = formData.value[key]
+        if (item !== undefined && item !== '') {
+          data[key] = item
+        }
+      })
+      console.log(data, 'formData.value')
       emit('queryBtnClick', {
-        ...formData.value
+        ...data
       })
     }
     const doIt = () => {
