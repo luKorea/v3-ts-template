@@ -21,10 +21,18 @@
         <div class="modal-title">
           <!-- 优化展示标题 -->
           <slot name="titleHandler">
-            <div style="text-align: left">
-              <div>{{ modalConfig?.title }}</div>
-              <div style="font-size: 12px" v-if="modalConfig.subTitle">
-                {{ modalConfig.subTitle }}
+            <div class="hg-items-center hg-flex hg-text-left">
+              <div class="hg-mr-1">{{ modalConfig?.title }}</div>
+              <div
+                class="hg-flex hg-flex-col hg-text-black hg-font-bold"
+                v-if="modalConfig.subTitle"
+              >
+                <div style="font-size: 12px">
+                  {{ formData.startTime }}
+                </div>
+                <div style="font-size: 12px">
+                  {{ formData.startTime }}
+                </div>
               </div>
             </div>
           </slot>
