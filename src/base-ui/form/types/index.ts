@@ -48,6 +48,7 @@ export interface IFormItem {
   // 针对区间选择器
   startValue?: any
   endValue?: any
+  // 配置默认值
   defaultValue?: any
   //  针对是否需要扩展
   prepend?: string

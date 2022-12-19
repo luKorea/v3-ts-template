@@ -99,9 +99,7 @@ export default defineComponent({
     const formOriginData: any = {}
     for (const item of formItems) {
       // 新增配置默认值功能
-      if (!item.defaultValue) {
-        formOriginData[item.field] = ''
-      } else formOriginData[item.field] = item.defaultValue
+      formOriginData[item.field] = item.defaultValue ?? ''
     }
     const formData = ref(formOriginData)
 
