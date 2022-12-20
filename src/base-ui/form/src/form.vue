@@ -175,7 +175,7 @@
                     :key="option.value"
                     :value="option.value"
                     :label="option.title"
-                  >{{ option.title }}</el-option
+                    >{{ option.title }}</el-option
                   >
                 </el-select>
               </template>
@@ -198,7 +198,7 @@
                     :key="option.value"
                     :value="option.value"
                     :label="option.title"
-                  >{{ option.title }}</el-option
+                    >{{ option.title }}</el-option
                   >
                 </el-select>
               </template>
@@ -336,6 +336,11 @@
                   @clear="handleClear"
                   style="width: 49%"
                 />
+              </template>
+
+              <!-- 扩展自定义插槽 -->
+              <template v-else-if="item.type === 'custom'">
+                <slot :name="item.slotName"></slot>
               </template>
             </el-form-item>
           </el-col>

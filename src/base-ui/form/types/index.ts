@@ -31,6 +31,7 @@ type IFormType =
   | 'number'
   | 'divider'
   | 'inputSlot'
+  | 'custom'
 
 export interface IFormItem {
   field: string
@@ -53,6 +54,7 @@ export interface IFormItem {
   //  针对是否需要扩展
   prepend?: string
   append?: string
+  slotName?: string
 }
 
 export interface IForm {
