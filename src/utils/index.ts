@@ -14,6 +14,16 @@ import Clipboard from 'clipboard'
 import { successTip, errorTip } from '@/utils/tip-info'
 import { Base64 } from 'js-base64'
 import dayjs from 'dayjs'
+import useClipboard from 'vue-clipboard3'
+export async function copyText(text: any) {
+  const { toClipboard } = useClipboard()
+  try {
+    await toClipboard(text)
+    successTip('复制成功')
+  } catch (e) {
+    errorTip('复制失败')
+  }
+}
 
 let loading: ILoadingInstance
 

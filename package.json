@@ -40,6 +40,7 @@
     "uid": "^2.0.0",
     "vcolorpicker": "^1.1.0",
     "vue": "^3.2.31",
+    "vue-clipboard3": "^2.0.0",
     "vue-router": "^4.0.10",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2",

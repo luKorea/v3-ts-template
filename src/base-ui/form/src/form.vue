@@ -47,9 +47,34 @@
                   @update:modelValue="handleValueChange($event, item.field)"
                   @keyup.enter="handleKeyUp"
                   @clear="handleClear"
+                  :data-clipboard-text="'测试一下'"
                 >
-                  <template #prepend>{{ item.prepend }}</template>
-                  <template #append>{{ item.append }}</template>
+                  <template #prepend v-if="item.prepend">{{
+                    item.prepend
+                  }}</template>
+                  <template #append v-if="item.append">
+                    <div
+                      style="cursor: pointer"
+                      v-if="item.otherOptions?.isCopy"
+                      @click="copyTextInfo(modelValue[`${item.field}`])"
+                    >
+                      {{ item.append }}
+                    </div>
+                    <div
+                      style="cursor: pointer"
+                      v-else-if="item.otherOptions?.isLink"
+                      @click="openLink(modelValue[`${item.field}`])"
+                    >
+                      {{ item.append }}
+                    </div>
+                    <div
+                      v-else-if="
+                        !item.otherOptions?.isLink && !item.otherOptions?.isCopy
+                      "
+                    >
+                      {{ item.append }}
+                    </div>
+                  </template>
                 </el-input>
               </template>
               <template v-if="item.type === 'textarea'">
@@ -340,7 +365,7 @@
 
               <!-- 扩展自定义插槽 -->
               <template v-else-if="item.type === 'custom'">
-                <slot :name="item.slotName"></slot>
+                <slot :name="item.slotName" :scope="item"> </slot>
               </template>
             </el-form-item>
           </el-col>
@@ -361,6 +386,7 @@ import type { ElForm } from 'element-plus'
 
 import HyEditor from '@/base-ui/editor'
 import HyUpload from '@/base-ui/upload'
+import { copyText } from '@/utils'
 
 export default defineComponent({
   components: {
@@ -449,7 +475,15 @@ export default defineComponent({
       })
     }
 
+    const copyTextInfo = (value: any) => {
+      copyText(value)
+    }
+    const openLink = (item: any) => {
+      window.open(`http://www.baidu.com/s?wd=${item}`, '_blank')
+    }
     return {
+      copyTextInfo,
+      openLink,
       showCascader,
       formRef,
       otherFormRef,
