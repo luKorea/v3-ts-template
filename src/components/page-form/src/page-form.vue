@@ -120,9 +120,14 @@ export default defineComponent({
           for (const item of props.modalConfig.formItems) {
             if (item.type === 'checkbox') {
               formData.value[item.field] = []
-            } else
-              formData.value[`${item.field}`] =
-                item.defaultValue ?? newValue[`${item.field}`]
+            } else {
+              if (newValue[`${item.field}`]) {
+                formData.value[`${item.field}`] = newValue[`${item.field}`]
+              } else {
+                formData.value[`${item.field}`] =
+                  item.defaultValue ?? newValue[`${item.field}`]
+              }
+            }
           }
         }
       }
